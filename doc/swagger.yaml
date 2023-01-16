@@ -217,8 +217,10 @@ components:
           type: integer
           format: int64
         title:
+          maxLength: 255
           type: string
         author:
+          maxLength: 255
           type: string
     BookForm:
       required:
@@ -226,10 +228,10 @@ components:
       type: object
       properties:
         title:
-          maxLength: 10
-          minLength: 0
+          maxLength: 255
           type: string
         author:
+          maxLength: 255
           type: string
     TitlesDto:
       type: object
