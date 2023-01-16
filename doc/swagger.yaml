@@ -1,0 +1,240 @@
+openapi: 3.0.1
+info:
+  title: 書籍管理システム
+  version: v0.1
+  description: 書籍情報を登録・変更・検索するAPIです
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  /api/book:
+    get:
+      summary: "全件取得API"
+      description: "書籍情報を全件返します"
+      tags:
+        - book-controller
+      operationId: findAll
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookEntity'
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/book/{id}:
+    get:
+      summary: "書籍情報取得API"
+      description: "IDに紐づく書籍情報を返します"
+      tags:
+        - book-controller
+      operationId: findById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BookEntity'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/book/search:
+    get:
+      summary: "書籍情報検索API"
+      description: "指定した書籍名および著者名を含む書籍情報を返します"
+      tags:
+        - book-controller
+      operationId: search
+      parameters:
+        - name: title
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: author
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookEntity'
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/book/author/{author}:
+    get:
+      summary: "書籍情報取得(著者から取得)API"
+      description: "著者名に紐づく書籍情報を返します"
+      tags:
+        - book-controller
+      operationId: findByAuthor
+      parameters:
+        - name: author
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TitlesDto'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/book/new:
+    post:
+      summary: "書籍情報登録API"
+      description: "書籍情報を登録します"
+      tags:
+        - book-controller
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookForm'
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BookEntity'
+
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/book/update:
+    put:
+      summary: "書籍情報更新API"
+      description: "書籍情報を更新します"
+      tags:
+        - book-controller
+      operationId: update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookEntity'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BookEntity'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+    BookEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        author:
+          type: string
+    BookForm:
+      required:
+        - title
+      type: object
+      properties:
+        title:
+          maxLength: 10
+          minLength: 0
+          type: string
+        author:
+          type: string
+    TitlesDto:
+      type: object
+      properties:
+        titles:
+          type: array
+          items:
+            type: string
