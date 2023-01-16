@@ -77,9 +77,7 @@ class BookServiceImp(
     @Transactional
     override fun update(bookEntity: BookEntity): BookEntity {
         // idが存在しない場合、エラー
-        if (!bookRepository.existsById(bookEntity.id)) {
-            throw IdNotFoundException()
-        }
+        bookRepository.findById(bookEntity.id).orElseThrow { IdNotFoundException() }
 
         // タイトルと著者がすでに存在する場合、エラー
         if (bookRepository.existsByTitleAndAuthor(bookEntity.title, bookEntity.author)) {
