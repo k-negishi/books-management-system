@@ -9,6 +9,6 @@ interface BookService {
     fun findById(id: Long): BookEntity
     fun findByAuthor(author: String): TitlesDto
     fun search(title: String?, author: String?): List<BookEntity>
-    fun create(title: BookForm): BookEntity
+    fun create(bookForm: BookForm): BookEntity
     fun update(bookEntity: BookEntity): BookEntity
 }
