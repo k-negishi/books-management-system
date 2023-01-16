@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 import java.util.ResourceBundle
 
+/**
+ * 例外をハンドリングするためのクラス
+ */
 @RestControllerAdvice
 class ApiExceptionHandler: ResponseEntityExceptionHandler(){
     val logger: Logger = LogManager.getLogger(ApiExceptionHandler::class.java)
