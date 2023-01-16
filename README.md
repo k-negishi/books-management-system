@@ -45,7 +45,7 @@ mvn test
 
 ### DB定義
 
-Springアプリケーション起動時に、DBスキーマ定義 `resources/schema.sql` および、サンプルデータ `resources/data.sql` が読み込まれます。
+Springアプリケーション起動時に、DBスキーマ定義 [schema.sql](https://github.com/k-negishi/books-management-system/blob/main/src/main/resources/schema.sql) および、サンプルデータ [data.sql](https://github.com/k-negishi/books-management-system/blob/main/src/main/resources/data.sql) が読み込まれます。
 
 #### テーブル定義
 
