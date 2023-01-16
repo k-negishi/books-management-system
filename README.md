@@ -40,8 +40,7 @@ mvn test
 
 ### API定義
 
-以下のSwagger参照。  
-`doc/swagger.yaml`
+[doc/swagger.yaml](https://github.com/k-negishi/books-management-system/blob/main/doc/swagger.yaml) を参照
 
 ### DB定義
 
