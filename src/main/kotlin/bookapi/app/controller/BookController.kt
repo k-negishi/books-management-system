@@ -35,6 +35,7 @@ class BookController(val bookService: BookService) {
 
     @GetMapping("/{id}")
     fun findById(@PathVariable id: Long): BookEntity {
+        logger.info("findById is called with id($id)")
         return bookService.findById(id)
     }
 
