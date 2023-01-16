@@ -30,14 +30,14 @@ data class BookEntity(
     /**
      * 書籍名
      */
-    @NotBlank
-    @Size(max = 255)
+    @field: NotBlank
+    @field: Size(max = 255)
     val title: String,
 
     /**
      * 著者名
      */
-    @NotBlank
-    @Size(max = 255)
+    @field: NotBlank
+    @field: Size(max = 255)
     val author: String
 )
